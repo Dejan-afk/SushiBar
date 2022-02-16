@@ -5,12 +5,11 @@ import static java.lang.Thread.sleep;
 public class Main {
 
     public static void main(String[] args) {
-        final int GUESTS = 30;
+        final int GUESTS = 6;
 
         /*
-        UNFAIRE LÖSUNG
+        FIRST TRY
 
-        Probably most profit though.
          */
          /*
 
@@ -34,12 +33,11 @@ public class Main {
 
 
         /*
-        FAIRE LÖSUNG
+        SEMAPHORE UND LOCK
 
-        Take it back, on the long run more profit due to best customer-service.
          */
 
-       // /*
+        /*
         Restaurant2 restaurant2 = new Restaurant2();
         Thread guests2[] = new Thread[GUESTS];
 
@@ -56,7 +54,32 @@ public class Main {
             }catch (InterruptedException e) {}
         }
 
-       // */
+        */
+
+
+         /*
+        WAIT und NOTIFY
+
+         */
+
+        // /*
+        Restaurant3 restaurant3 = new Restaurant3();
+        Thread guests3[] = new Thread[GUESTS];
+
+        for(int i = 0; i < GUESTS; i++){
+            guests3[i] = new Thread(new Guest3(restaurant3, "Gruppe-"+String.valueOf(i)));
+        }
+
+        for(var guest: guests3)
+            guest.start();
+
+        for(var guest: guests3) {
+            try{
+                guest.join();
+            }catch (InterruptedException e) {}
+        }
+
+        // */
 
     }
 }

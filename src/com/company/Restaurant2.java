@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -73,45 +74,6 @@ public class Restaurant2{
     public synchronized void printStatus(Guest2 guest, int number, String string){
         String plural = number > 1 ? "Personen" : "Person";
         System.out.println(guest.getGroupName()+" ("+number+" "+plural+") "+string);
-    }
-
-
-
-    /*
-    This function is of no use due to Semaphore and Lock. I'll let it here, because it was the most fun thinking through it.
-     */
-    //check if enough seatings are available for a group
-    public boolean areSeatingsAvailable(int numberOfGuests){
-        int count = 0;
-        for(int i = 0; i < SEATINGS; i++){
-            if(count == numberOfGuests) break;
-            if(table[i]){
-                for(int j = i; j < numberOfGuests + i; j++){
-                    if(j + numberOfGuests - 1 < SEATINGS){
-                        if(table[j]) count ++;
-                        if(!(table[j])){
-                            count = 0;
-                            break;
-                        }
-                    }else{
-                        if(j < SEATINGS){
-                            if(table[j]) count++;
-                            if(!(table[j])){
-                                count = 0;
-                                break;
-                            }
-                        }else{
-                            if(table[j - SEATINGS]) count++;
-                            if(!(table[j - SEATINGS])){
-                                count = 0;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return count == numberOfGuests;
     }
 
 }
